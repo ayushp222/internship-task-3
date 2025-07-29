@@ -1,0 +1,48 @@
+Create Students table
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    math_score INT,
+    science_score INT,
+    english_score INT
+);
+
+Insert sample data
+INSERT INTO Students (student_id, name, math_score, science_score, english_score) VALUES
+(1, 'Alice', 85, 78, 90),
+(2, 'Bob', 92, 88, 84),
+(3, 'Charlie', 68, 74, 79),
+(4, 'David', 92, 91, 87),
+(5, 'Eva', 70, 69, 73),
+(6, 'Frank', 60, 85, 80),
+(7, 'Grace', 95, 89, 92),
+(8, 'Helen', 75, 82, 78);
+
+Top 5 students based on total scores
+SELECT name,
+       (math_score + science_score + english_score) AS total_score
+FROM Students
+ORDER BY total_score DESC
+LIMIT 5;
+
+Average math score where math_score > 70
+SELECT AVG(math_score) AS average_math_score
+FROM Students
+WHERE math_score > 70;
+
+
+Use subquery to filter total score between 200–250
+SELECT AVG(total) AS avg_total_score
+FROM (
+    SELECT (math_score + science_score + english_score) AS total
+    FROM Students
+) AS totals
+WHERE total BETWEEN 200 AND 250;
+
+
+Second highest math score
+SELECT MAX(math_score) AS second_highest_math_score
+FROM Students
+WHERE math_score < (SELECT MAX(math_score) FROM Students);
+
+
